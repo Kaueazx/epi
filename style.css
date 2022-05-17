@@ -1,0 +1,80 @@
+.container {
+position: absolute;
+left: 0;
+right: 0;
+top: 0;
+bottom: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+
+.formTitle {
+    text-align: center;
+    width: 30%;
+}
+.formApp {
+    position: relative;
+    margin-top: 25px;
+    border: 1px solid var(--grey-one);
+    padding: 24px;
+    width: 73%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.container_input {
+    display: flex;
+    margin: 7px 0;
+    margin-right: auto;
+}
+.container_input label {
+    height: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--orange-one);
+    color: black;
+    padding: 0px 14px;
+    border-radius: 6px 0 0 6px;
+    width: 212px;
+}
+
+.container_input input {
+    height: 37px;
+    padding: 0 7px;
+    border-radius: 0 6px 6px 0;
+    border: 1px solid var(--grey-one);
+}
+
+.container_input span {
+    display: flex;
+    width: 26px;
+    height: 26px;
+    align-items: center;
+    justify-content: center;
+    background-color: #a1a1a1;
+    border: 1px #42414145;
+    border-style: solid;
+    border-radius: 5px;
+    margin-left: 3px;
+    margin-top: 5px;
+}
+
+#textoParede {
+    position: absolute;
+    top: -35px;
+}
+
+#formButton {
+    bottom: -60px;
+    position: absolute;
+    left: 0;
+    padding: 14px;
+    border: 0;
+    background-color: var(--orange-two);
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: 650;
+}
