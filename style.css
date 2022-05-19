@@ -1,13 +1,13 @@
 .container {
-position: absolute;
-left: 0;
-right: 0;
-top: 0;
-bottom: 0;
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .formTitle {
@@ -77,4 +77,38 @@ flex-direction: column;
     border-radius: 5px;
     text-transform: uppercase;
     font-weight: 650;
+    cursor: pointer;
+    transition: 200ms all ease-in-out;
+}
+#formButton:hover {
+background-color: var(--orange-one);
+}
+
+@media (max-width: 1220px) {
+.formApp {
+    width: 85%;
+    }
+}
+
+@media (max-width: 1035px) {
+.formApp {
+    flex-direction: column;
+    width: auto;
+    }
+#formButton {
+    width: 100%;
+    }
+}
+
+@media (max-width: 763px) {
+    .formTitle {
+        padding: 5% 3%;
+        width: 97%;
+    }
+    .container_input input {
+        width: 50%;
+    }
+    .container_input label {
+        width: 40%;
+    }
 }
