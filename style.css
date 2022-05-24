@@ -13,16 +13,30 @@
 .formTitle {
     text-align: center;
     width: 30%;
+    margin-top: -90px;
 }
 .formApp {
     position: relative;
-    margin-top: 25px;
+    margin-top: 100px;
     border: 1px solid var(--grey-one);
     padding: 24px;
     width: 73%;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+}
+
+#mensagem {
+    position: absolute;
+    top: -111px;
+    width: 100%;
+    padding: 15px;
+    background-color: #ff00005c;
+    border-radius: 5px;
+    text-align: center;
+}
+#mensagem.hidden {
+    display: none;
 }
 .container_input {
     display: flex;
