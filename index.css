@@ -1,8 +1,9 @@
 :root {
     --grey-one: #787878;
+    --grey-two: #c4c4c4;
     --orange-one: #ff9900;
     --orange-two: #ffae00;
-
+    --orange-three: #ffcf00;
 }
 
 * {

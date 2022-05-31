@@ -26,13 +26,34 @@
  // Funções
 // document.onload(function() {})
 
+function calculaTintaNecessaria(comodo) {
+    let area1 = (comodo[0].altura * 1) * (comodo[0].altura * 1)
+    let area2 = (comodo[1].altura * 1) * (comodo[1].altura * 1);
+    let area3 = (comodo[2].altura * 1) * (comodo[2].altura * 1);
+    let area4 = (comodo[3].altura * 1) * (comodo[3].altura * 1);
+
+
+    let areaJanelas = (comodo[0].nmrJanelas * 2.4) + (comodo[1].nmrJanelas * 2.4) + (comodo[2].nmrJanelas * 2.4) + (comodo[3].nmrJanelas * 2.4); 
+    let areaPortas = (comodo[0].nmrPortas * 1.52) + (comodo[1].nmrPortas * 1.52) + (comodo[2].nmrPortas * 1.52) + (comodo[3].nmrPortas * 1.52); 
+
+
+
+    let areaTotal = (area1 + area2 + area3 + area4);
+    areaTotal = areaTotal - (areaJanelas + areaPortas);
+    alert(areaTotal);
+}
+
 function atualizaParedeAtual() {
-    if (comodo.length > 0) {
+    if ((comodo.length > 0) && comodo.length <= 3) {
         paredeAtual = comodo.length + 1;
     }
     $('#textoParede').text("emo " + paredeAtual);
-}
 
+    if(comodo.length == 4) {
+        $("#btnCalc").removeClass('hidden');
+        $("#formButton").prop('disabled', true);
+    }
+}
 
 function verificaAreaParede(altura, largura) {
     let area = altura * largura;
@@ -55,7 +76,7 @@ function proporcaoParede(nmrPortas, nmrJanelas, altura, largura) {
     let areaPortas  = nmrPortas * 1.52;
 
     if ((areaJanelas + areaPortas ) <= area) {
-      if   (verificaAlturaParede(nmrPortas, altura) == true) {
+      if   ((verificaAlturaParede(nmrPortas, altura) == true) && comodo.length <=3) {
             comodo.push({
               'altura': altura,
               'largura': largura,
@@ -64,6 +85,8 @@ function proporcaoParede(nmrPortas, nmrJanelas, altura, largura) {
      });
 
 console.log(comodo);
+
+atualizaParedeAtual();
 
       }
       else{
@@ -109,3 +132,37 @@ $("#formButton").on('click', (e) => {
 
    validaParede(altura, largura, nmrJanelas, nmrPortas);
 });
+
+$('#btnCalc').on('click', (e) => {
+    e.preventDefault();
+    calculaTintaNecessaria(comodo);
+}) 
+// tags em html sao os comando
+// git = versionador de codigo
+// github = arvore binaria
+// git flow = work flow (forma de trabalhar)
+// conceito Cli = funciona atraves de algum programa cmd
+// conceito Gui = 
+
+// git flow por si só é um programa Cli
+
+// git add . = git add = adicionar arquivos / . = todos
+
+// git commit -m '' = git commit = "preparar os arquivos adicionados para serem publicados"
+
+// git branch = mostrar as branchs 'ramos da arvore'
+
+// git 'status' = 'status' do repositorio no geral
+
+// git checkout = troca de branchs / git checkout -b main (checa se existe branch, e se nao existir cria a mesma)
+
+// git flow feature start '' = criar uma feature
+// ]
+// git flow feature end = finaliza/deleta uma feature && da um push na feature para a develop(featurePai)
+
+// git clone [link] = clona o repositorio git para a maquina local atual
+
+// git remote = checa a origem da criaçao do repositorio
+
+
+
