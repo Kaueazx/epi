@@ -19,28 +19,31 @@
 //     'nmrJanelas': 0
 // }
 
- let comodo = [];
- let paredeAtual = 1;
- let mensagem = "";
- let campoMensagem = $("#mensagem");
- // Funções
+let comodo = [];
+let paredeAtual = 1;
+let mensagem = "";
+let campoMensagem = $("#mensagem");
+const latasTinta = [18, 3.6, 2.5, 0.5];
+
+// Funções
 // document.onload(function() {})
 
 function calculaTintaNecessaria(comodo) {
-    let area1 = (comodo[0].altura * 1) * (comodo[0].altura * 1)
+    let area1 = (comodo[0].altura * 1) * (comodo[0].altura * 1);
     let area2 = (comodo[1].altura * 1) * (comodo[1].altura * 1);
     let area3 = (comodo[2].altura * 1) * (comodo[2].altura * 1);
     let area4 = (comodo[3].altura * 1) * (comodo[3].altura * 1);
 
 
-    let areaJanelas = (comodo[0].nmrJanelas * 2.4) + (comodo[1].nmrJanelas * 2.4) + (comodo[2].nmrJanelas * 2.4) + (comodo[3].nmrJanelas * 2.4); 
-    let areaPortas = (comodo[0].nmrPortas * 1.52) + (comodo[1].nmrPortas * 1.52) + (comodo[2].nmrPortas * 1.52) + (comodo[3].nmrPortas * 1.52); 
-
-
+    let areaJanelas = (comodo[0].nmrJanelas * 2.4) + (comodo[1].nmrJanelas * 2.4) + (comodo[2].nmrJanelas * 2.4) + (comodo[3].nmrJanelas * 2.4);
+    let areaPortas = (comodo[0].nmrPortas * 1.52) + (comodo[1].nmrPortas * 1.52) + (comodo[2].nmrPortas * 1.52) + (comodo[3].nmrPortas * 1.52);
 
     let areaTotal = (area1 + area2 + area3 + area4);
-    areaTotal = areaTotal - (areaJanelas + areaPortas);
-    alert(areaTotal);
+    let tintaNecessaria = (areaTotal - (areaJanelas + areaPortas)) / 5;
+
+    alert(tintaNecessaria);
+
+    return tintaNecessaria;
 }
 
 function atualizaParedeAtual() {
@@ -49,7 +52,7 @@ function atualizaParedeAtual() {
     }
     $('#textoParede').text("emo " + paredeAtual);
 
-    if(comodo.length == 4) {
+    if (comodo.length == 4) {
         $("#btnCalc").removeClass('hidden');
         $("#formButton").prop('disabled', true);
     }
@@ -57,51 +60,51 @@ function atualizaParedeAtual() {
 
 function verificaAreaParede(altura, largura) {
     let area = altura * largura;
-    if (area >= 1 && area <= 15) 
-    return true;
+    if (area >= 1 && area <= 15)
+        return true;
     else
-    return false;
+        return false;
 }
 
 function verificaAlturaParede(nmrPortas, altura) {
     if ((nmrPortas > 0 && (altura - 0.3) >= 1.9) || nmrPortas == 0)
-       return true;
+        return true;
     else
-       return false;
+        return false;
 }
 
 function proporcaoParede(nmrPortas, nmrJanelas, altura, largura) {
-    let area =  (altura * largura) / 2;
+    let area = (altura * largura) / 2;
     let areaJanelas = nmrJanelas * 2.4;
-    let areaPortas  = nmrPortas * 1.52;
+    let areaPortas = nmrPortas * 1.52;
 
-    if ((areaJanelas + areaPortas ) <= area) {
-      if   ((verificaAlturaParede(nmrPortas, altura) == true) && comodo.length <=3) {
+    if ((areaJanelas + areaPortas) <= area) {
+        if ((verificaAlturaParede(nmrPortas, altura) == true) && comodo.length <= 3) {
             comodo.push({
-              'altura': altura,
-              'largura': largura,
-              'nmrPortas': nmrPortas,
-              'nmrJanelas': nmrJanelas
-     });
+                'altura': altura,
+                'largura': largura,
+                'nmrPortas': nmrPortas,
+                'nmrJanelas': nmrJanelas
+            });
 
-console.log(comodo);
+            console.log(comodo);
 
-atualizaParedeAtual();
+            atualizaParedeAtual();
 
-      }
-      else{
-        mensagem = "A altura da parede tem de ser 30cm maior que a porta!";
-        campoMensagem.removeClass("hidden");
-        campoMensagem.text(mensagem);
-    
-      }
-    
+        }
+        else {
+            mensagem = "A altura da parede tem de ser 30cm maior que a porta!";
+            campoMensagem.removeClass("hidden");
+            campoMensagem.text(mensagem);
+
+        }
+
     }
     else {
         mensagem = "A soma da area das portas e das janelas excedeu 50% da area da parede!";
         campoMensagem.removeClass("hidden");
         campoMensagem.text(mensagem);
-    
+
     }
 }
 
@@ -130,19 +133,88 @@ $("#formButton").on('click', (e) => {
     let nmrPortas = $('#portas').val();
     let nmrJanelas = $('#janelas').val();
 
-   validaParede(altura, largura, nmrJanelas, nmrPortas);
+    validaParede(altura, largura, nmrJanelas, nmrPortas);
 });
 
 $('#btnCalc').on('click', (e) => {
     e.preventDefault();
-    calculaTintaNecessaria(comodo);
-}) 
+    // let tintaNecessaria = calculaTintaNecessaria(comodo);
+    let tintaNecessaria = 19;
+    let cont = 0;
+    let qtdLata = 0;
+    console.clear();
+
+    while (cont < latasTinta.length) {
+        if (latasTinta[cont] > 0.5) {
+            if (latasTinta[cont] <= tintaNecessaria) {
+                if (tintaNecessaria - latasTinta[cont] < latasTinta[cont]) {
+                    if (cont === 0)
+                        mensagem = `Compre 1 Lata de ${latasTinta[cont]} Litros`;
+                    else {
+                        if (tintaNecessaria - latasTinta[cont] <= 0)
+                            mensagem += ` e 1 lata de ${latasTinta[cont]} litros`
+                        else {
+                            mensagem += `, 1 lata de ${latasTinta[cont]} litros`
+                        }
+                    }
+
+                    tintaNecessaria = tintaNecessaria - latasTinta[cont];
+                }
+                else {
+                    while (latasTinta[cont] <= tintaNecessaria) {
+                        qtdLata++;
+
+                        tintaNecessaria = tintaNecessaria - latasTinta[cont];
+                    }
+
+                    if (cont === 0)
+                        mensagem = `Compre ${qtdLata} latas de ${latasTinta[cont]} Litros`;
+                    else {
+                        if (tintaNecessaria - latasTinta[cont] <= 0)
+                            mensagem += ` e ${qtdLata} latas de ${latasTinta[cont]} litros`
+                        else {
+                            mensagem += `, ${qtdLata} latas de ${latasTinta[cont]} litros`
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            if (tintaNecessaria > 0) {
+                qtdLata = 0;
+
+                while (tintaNecessaria > 0) {
+                    qtdLata++;
+
+                    tintaNecessaria = tintaNecessaria - latasTinta[cont];
+                }
+
+                if (cont === 0)
+                    mensagem = `Compre ${qtdLata} latas de ${latasTinta[cont]} Litros`;
+                else {
+                    if (tintaNecessaria - latasTinta[cont] <= 0)
+                        mensagem += ` e ${qtdLata} latas de ${latasTinta[cont]} litros`
+                    else {
+                        mensagem += `, ${qtdLata} latas de ${latasTinta[cont]} litros`
+                    }
+                }
+            }
+        }
+
+        cont++;
+    }
+
+    console.log(mensagem);
+
+});
+
+
 // tags em html sao os comando
 // git = versionador de codigo
 // github = arvore binaria
 // git flow = work flow (forma de trabalhar)
 // conceito Cli = funciona atraves de algum programa cmd
-// conceito Gui = 
+// conceito Gui =
 
 // git flow por si só é um programa Cli
 
